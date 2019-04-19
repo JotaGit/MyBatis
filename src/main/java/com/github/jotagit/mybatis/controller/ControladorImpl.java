@@ -1,36 +1,33 @@
 package com.github.jotagit.mybatis.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.jotagit.mybatis.entity.Objeto;
+import com.github.jotagit.mybatis.service.IServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.github.jotagit.mybatis.service.IServico;
+import java.util.ArrayList;
+import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/objeto")
 public class ControladorImpl implements IControlador {
 
 	@Autowired
-	IServico IServicoImpl;
+	IServico servico;
 
 	@Override
 	@GetMapping
 	@ResponseBody
 	public List<Objeto> buscarTodos() {
-		List<Objeto> objetoList = IServicoImpl.findAll();
-		return objetoList;
+		return servico.findAll();
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	@ResponseBody
 	public Objeto buscarUm(@PathVariable Integer id) {
-		Objeto ret = IServicoImpl.getOne(id);
-		return ret;
+		return servico.getOne(id);
 	}
 
 
@@ -38,8 +35,7 @@ public class ControladorImpl implements IControlador {
 	@PostMapping
 	@ResponseBody
 	public Objeto salvar(@RequestBody Objeto objeto) {
-		Objeto ret = IServicoImpl.save(objeto);
-		return ret;
+		return servico.save(objeto);
 	}
 	
 	
@@ -47,8 +43,8 @@ public class ControladorImpl implements IControlador {
 	@DeleteMapping("/{id}")
 	@ResponseBody
 	public Boolean borrar(Objeto objeto) {
-		Objeto objetoABorrar = IServicoImpl.getOne(objeto.getId());
-		return IServicoImpl.delete(objetoABorrar);
+		Objeto objetoABorrar = servico.getOne(objeto.getId());
+		return servico.delete(objetoABorrar);
 	}
 	
 
@@ -56,12 +52,12 @@ public class ControladorImpl implements IControlador {
 	@ResponseBody
 	public List<Objeto> mock(Objeto objeto){
 		
-		List<Objeto> objetoList = new ArrayList<Objeto>();
+		List<Objeto> objetoList = new ArrayList<>();
 		Objeto p = new Objeto();
 		p.setTexto(String.valueOf(Math.random()));
 		objetoList.add(p);
 
-		IServicoImpl.save(p);
+		servico.save(p);
 
 		return this.buscarTodos();
 	}

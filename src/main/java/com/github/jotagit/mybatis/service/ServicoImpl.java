@@ -5,7 +5,6 @@ import com.github.jotagit.mybatis.repository.IRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,30 +15,22 @@ public class ServicoImpl implements IServico {
 	
 	@Override
 	public List<Objeto> findAll(){
-		List<Objeto> ret = new ArrayList<Objeto>();
-		ret = usuarioRepositorioImpl.findAll();
-		return ret;
+		return usuarioRepositorioImpl.findAll();
 	}
 	
 	@Override
 	public Objeto getOne(Integer id){
-		Objeto ret = new Objeto();
-		ret = usuarioRepositorioImpl.getOne(id);
-		return ret;
+		return usuarioRepositorioImpl.getOne(id);
 	}
 
 	@Override
 	public Objeto save(Objeto objeto) {
-		Objeto ret = new Objeto();
-		usuarioRepositorioImpl.save(objeto);
-		ret = objeto;
-		return ret;
+		Integer idsaved = usuarioRepositorioImpl.save(objeto);
+		return usuarioRepositorioImpl.getOne(idsaved);
 	}
 
 	@Override
 	public Boolean delete(Objeto objeto) {
-		Objeto ret = new Objeto();
-        usuarioRepositorioImpl.delete(objeto);
-		return Boolean.TRUE;
+		return usuarioRepositorioImpl.delete(objeto);
 	}
 }

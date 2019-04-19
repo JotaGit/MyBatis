@@ -1,8 +1,8 @@
 package com.github.jotagit.mybatis.service;
 
-import java.util.List;
-
 import com.github.jotagit.mybatis.entity.Objeto;
+
+import java.util.List;
 
 public interface IServico {
 
