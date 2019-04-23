@@ -1,7 +1,9 @@
-package com.github.jotagit.mybatis.service;
+package com.github.jotagit.mybatis.service.impl;
 
+import com.github.jotagit.mybatis.component.RestConnector;
 import com.github.jotagit.mybatis.entity.Objeto;
 import com.github.jotagit.mybatis.repository.IRepositorio;
+import com.github.jotagit.mybatis.service.IServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ public class ServicoImpl implements IServico {
 
 	@Autowired
 	IRepositorio usuarioRepositorioImpl;
+
+	@Autowired
+	RestConnector restConnector;
 	
 	@Override
 	public List<Objeto> findAll(){
@@ -26,6 +31,11 @@ public class ServicoImpl implements IServico {
 	@Override
 	public Objeto save(Objeto objeto) {
 		Integer idsaved = usuarioRepositorioImpl.save(objeto);
+
+		Boolean eventoPublicado = restConnector.publicarEvento("mensagem".concat(objeto.getId().toString()));
+
+		System.out.println(eventoPublicado);
+
 		return usuarioRepositorioImpl.getOne(idsaved);
 	}
 
