@@ -3,7 +3,6 @@ package com.github.jotagit.mybatis.controller;
 import com.github.jotagit.mybatis.entity.Objeto;
 import com.github.jotagit.mybatis.service.IServico;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
